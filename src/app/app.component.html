@@ -1,4 +1,4 @@
-<div>
+<div class="container">
   <h1>{{ title }}</h1>
 
   <!-- Formulaire d'ajout de tâches -->
@@ -10,53 +10,35 @@
     <button (click)="addTask()" class="btn btn-primary mt-2">Ajouter Tâche</button>
   </div>
 
-  <!-- Liste des tâches -->
-  <div *ngIf="tasks.length > 0">
-    <h2>Tâches</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Titre</th>
-          <th>Description</th>
-          <th>Statut</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let task of tasks" [ngClass]="{'table-success': task.completed}">
-          <td>{{ task.id }}</td>
-          <td>{{ task.title }}</td>
-          <td>{{ task.description }}</td>
-          <td>{{ task.completed ? 'Terminée' : 'Non terminée' }}</td>
-          <td>
-            <button (click)="toggleCompletion(task)" class="btn btn-info btn-sm">
-              {{ task.completed ? 'Marquer comme non terminée' : 'Marquer comme terminée' }}
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <!-- Champ de recherche -->
+  <div class="mb-3">
+    <input [(ngModel)]="searchText" placeholder="Rechercher par titre" class="form-control mt-2" />
   </div>
 
-  <!-- Liste des tâches complètes -->
-  <div *ngIf="completedTasks.length > 0" class="mt-4">
-    <h2>Tâches Complètes</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Titre</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let task of completedTasks">
-          <td>{{ task.id }}</td>
-          <td>{{ task.title }}</td>
-          <td>{{ task.description }}</td>
-        </tr>
-      </tbody>
-    </table>
+  <!-- Liste des tâches -->
+  <div *ngIf="filteredTasks.length > 0">
+    <h2>Tâches</h2>
+    <div class="row">
+      <div *ngFor="let task of filteredTasks" class="col-md-4 mb-3">
+        <div class="card" [ngClass]="{'bg-success text-white': task.completed, 'bg-light border-primary': !task.completed}">
+          <div class="card-body">
+            <h5 class="card-title" [ngClass]="{'text-decoration-line-through': task.completed}">
+              {{ task.title }}
+            </h5>
+            <p class="card-text" [ngClass]="{'text-decoration-line-through': task.completed}">
+              {{ task.description }}
+            </p>
+            <p class="card-text">
+              <small [ngClass]="{'text-light': task.completed, 'text-muted': !task.completed}">
+                {{ task.completed ? 'Terminée' : 'Non terminée' }}
+              </small>
+            </p>
+            <button (click)="toggleCompletion(task)" class="btn" [ngClass]="{'btn-light': task.completed, 'btn-info': !task.completed}">
+              {{ task.completed ? 'Marquer comme non terminée' : 'Marquer comme terminée' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

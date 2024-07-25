@@ -1,0 +1,19 @@
+
+
+/* Styles pour les tâches terminées */
+.text-decoration-line-through {
+    text-decoration: line-through;
+    width: 100%;
+
+  }
+  
+  .bg-success {
+    background-color: #28a745 !important;
+  }
+  
+  .text-light {
+    color: #f8f9fa !important; 
+  }
+  
+
+  
