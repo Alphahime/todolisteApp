@@ -7,7 +7,7 @@
     <textarea [(ngModel)]="newTaskDescription" placeholder="Description de la tâche" class="form-control mt-2"></textarea>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-    <button (click)="addTask()" class="btn btn-primary mt-2">Ajouter Tâche</button>
+    <button (click)="ajouterTache()" class="btn btn-primary mt-2">Ajouter Tâche</button>
   </div>
 
   <!-- Champ de recherche -->
@@ -16,10 +16,10 @@
   </div>
 
   <!-- Liste des tâches -->
-  <div *ngIf="filteredTasks.length > 0">
+  <div *ngIf="tachesFiltrees.length > 0">
     <h2>Tâches</h2>
     <div class="row">
-      <div *ngFor="let task of filteredTasks" class="col-md-4 mb-3">
+      <div *ngFor="let task of tachesFiltrees" class="col-md-4 mb-3">
         <div class="card" [ngClass]="{'bg-success text-white': task.completed, 'bg-light border-primary': !task.completed}">
           <div class="card-body">
             <h5 class="card-title" [ngClass]="{'text-decoration-line-through': task.completed}">
@@ -33,7 +33,7 @@
                 {{ task.completed ? 'Terminée' : 'Non terminée' }}
               </small>
             </p>
-            <button (click)="toggleCompletion(task)" class="btn" [ngClass]="{'btn-light': task.completed, 'btn-info': !task.completed}">
+            <button (click)="basculerEtatTache(task)" class="btn" [ngClass]="{'btn-light': task.completed, 'btn-info': !task.completed}">
               {{ task.completed ? 'Marquer comme non terminée' : 'Marquer comme terminée' }}
             </button>
           </div>
